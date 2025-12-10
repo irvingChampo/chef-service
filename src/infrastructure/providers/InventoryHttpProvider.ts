@@ -13,7 +13,7 @@ export class InventoryHttpProvider implements IInventoryProvider {
 
       const response = await axios.get(url, {
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: token 
         }
       });
 
@@ -28,9 +28,8 @@ export class InventoryHttpProvider implements IInventoryProvider {
       }
 
       return items
-        .map(
-          (i: any) =>
-            `- ${i.name} (${i.quantity} ${i.unit})`
+        .map((i: any) =>
+          `- ${i.product?.name ?? i.name} (${i.quantity} ${i.product?.unit ?? i.unit})`
         )
         .join("\n");
 
