@@ -1,0 +1,9 @@
+services:
+  chef-service:
+    container_name: chef-service
+    build: .
+    restart: always
+    ports:
+      - "4009:4009"
+    env_file:
+      - .env

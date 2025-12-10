@@ -6,15 +6,12 @@ export class AskChefController {
 
   async handle(req: Request, res: Response) {
     try {
-      // CAMBIO: Extraer kitchenId de los parámetros de la URL
       const kitchenId = Number(req.params.kitchenId);
       
-      // La pregunta sigue viniendo en el cuerpo
       const { question } = req.body;
       
       const token = req.headers.authorization || '';
 
-      // Validaciones
       if (!kitchenId || isNaN(kitchenId)) {
         return res.status(400).json({ 
           success: false, 
@@ -29,7 +26,6 @@ export class AskChefController {
         });
       }
 
-      // Ejecutar caso de uso
       const answer = await this.useCase.execute({ kitchenId, question }, token);
 
       return res.json({

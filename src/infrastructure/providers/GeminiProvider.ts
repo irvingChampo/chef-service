@@ -9,8 +9,6 @@ export class GeminiProvider implements IAiProvider {
   constructor() {
     this.genAI = new GoogleGenerativeAI(env.geminiApiKey);
     
-    // CAMBIO CLAVE AQUÍ: Usamos "gemini-1.5-pro"
-    // Si este falla, intenta con "gemini-1.0-pro" (la versión anterior más compatible)
     this.model = this.genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
   }
 
@@ -29,7 +27,6 @@ export class GeminiProvider implements IAiProvider {
     } catch (error: any) {
       console.error("Gemini Error:", error);
       
-      // Manejo de errores específicos
       if (error.message?.includes('404') || error.message?.includes('not found')) {
         return "Error técnico: El nombre del modelo de IA no es válido. Prueba cambiar 'gemini-1.5-pro' por 'gemini-1.0-pro' en el código.";
       }

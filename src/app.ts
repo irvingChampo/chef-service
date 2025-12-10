@@ -6,16 +6,18 @@ import chefRoutes from './infrastructure/api/routes/chef.routes';
 
 const app = express();
 
-app.use(cors());
+app.use(cors({ origin: '*' }));
 app.use(helmet());
 app.use(morgan('dev'));
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.json({ service: 'Chef-Service', status: 'Online 👨‍🍳' });
+app.get('/health', (_req, res) => {
+  res.json({
+    service: 'Chef-Service',
+    status: 'Online'
+  });
 });
 
-// Rutas base
 app.use('/api/v1/chef', chefRoutes);
 
 export default app;
